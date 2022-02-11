@@ -171,7 +171,7 @@ Outro caso de uso comum *git add* é a opção *--all*. A execução do comando 
 ## Os estágios de um arquivo no Git
 
 ![1_LvJtV6HPdpSKpPNdjwf6jQ](https://user-images.githubusercontent.com/45216757/153660536-7700ea37-46ea-4799-8830-0c60c85dfd54.png)
-O conceito dos três estados de um arquivo GIT é muito importante para o entendimento e uso do Git. Não importa o momento, seus arquivos sempre estão em um dos três estados fundamentais:
+O conceito dos três estados de um arquivo Git é muito importante para o entendimento e uso do Git. Não importa o momento, seus arquivos sempre estão em um dos três estados fundamentais:
 1. modificado (modified),
 2. preparado (staged) ou
 3. consolidado (committed).
@@ -195,3 +195,56 @@ A área de stage pode ser pensada como a parte de trás das cortinas de uma apre
 **Consolidado (committed)**<p>
 Nesta etapa será registrado no histórico as mudanças adicionadas na Staging Area. Ao utilizar o comando *git commit* um snapshot de todo o repositório é realizado.
 Um snapshot também é comumente denominado de commit.
+
+## Status do Git: inspecionando um repositório
+#### git status
+O comando *git status* exibe o estado da Working Tree e a área de stage. Ele permite que você veja quais alterações foram preparadas, quais não foram e quais arquivos não estão sendo rastreados pelo Git. A saída de status não mostra nenhuma informação sobre o histórico do projeto confirmado. Para isso, você precisa usar git log.
+- ``` git status  ```
+
+#### git tag
+*Tags* são referências que apontam para pontos específicos no histórico do Git. O comando *git tag* é geralmente usado para capturar um ponto no histórico que é usado para um lançamento de versão.
+A *tag* é como um branch que não muda. Ao contrário das ramificações, as tags, depois de criadas, não têm mais histórico de commits.
+Para criar uma nova tag execute o seguinte comando:
+- ``` git tag <tagname>  ```
+
+O Git suporta dois tipos diferentes de tags:
+1. tags e
+2. anotadas e tags leves.<p>
+O exemplo anterior criou uma tag leve. Tags leves e tags anotadas diferem na quantidade de metadados de acompanhamento que armazenam. Uma prática recomendada é considerar as tags anotadas como públicas e as tags leves como privadas. As tags anotadas armazenam metadados extras, como: o nome do tagger, e-mail e data. Este é um dado importante para um lançamento público. Tags leves são essencialmente 'marcadores' para um commit, são apenas um nome e um ponteiro para um commit, úteis para criar links rápidos para commits relevantes.
+
+-Tags Anotadas<p>
+As tags anotadas são armazenadas como objetos completos no banco de dados Git.
+Semelhante a commits e mensagens de commit as *tags anotadas* possuem uma mensagem de marcação. Além disso, por questões de segurança, as *tags anotadas* podem ser assinadas e verificadas com o *GNU Privacy Guard* (GPG). As práticas recomendadas sugeridas para a marcação do git são preferir tags anotadas em vez de leves para que você possa ter todos os metadados associados.<p>
+A execução do comando abaixo criará uma nova *tag anotada* identificada com v1.4. O comando abrirá o editor de texto padrão configurado para solicitar mais entradas de metadados.<p>
+- ``` git tag -a v1.4  ```
+
+A execução do comando abaixo é semelhante à chamada anterior, no entanto, esta versão do comando recebe a opção -m (mensagem). Este é um método semelhante ao comando *git commit -m* que criará imediatamente uma nova tag e abrirá o editor de texto local para que seja possível salvar a mensagem passada com a opção *-m*.
+- ``` git tag -a v1.4 -m "my version 1.4"  ```
+
+-Tags Leves<p>
+A execução do comando abaixo cria uma *tag leve* identificada como v1.4-lw. *Tags leves* são criadas com a ausência das opções -a, -s ou -m.<p>
+- ``` git tag v1.4-lw  ```
+
+-Listando Tags<p>
+Para listar as tags armazenadas em um repositório, execute o seguinte:
+- ``` git tag  ```
+
+Para refinar a lista de tags, a opção '-l' pode ser passada com uma expressão curinga:
+- ``` git tag -l *-rc*  ```
+
+#### git blame<p>
+O comando *git blame* é usado para explorar o histórico de código específico e responder a perguntas sobre o quê, como e por que o código foi adicionado a um repositório.<p>
+A execução do comando abaixo nos dará nossa primeira amostra de saída:
+- ``` git blame README.MD  ```
+
+![3](https://user-images.githubusercontent.com/45216757/153676274-aeb2821c-fd9e-460b-abd7-48099ccb6cc8.png)
+
+#### git log<p>
+O comando *git log* permite listar o histórico do projeto, filtrá-lo e pesquisar alterações específicas.
+- ``` git log  ```
+ 
+Lista quais arquivos são staged, unstaged e untracked.
+
+## Desfazendo confirmações e alterações
+É importante notar que o *Git* não possui um sistema tradicional de 'desfazer' como os encontrados em um aplicativo de processamento de texto. Além disso, o *Git* tem sua própria nomenclatura para operações de 'desfazer'. Essa nomenclatura inclui termos como reset, revert, checkout, clean, e muito mais.<p>
+Ao 'desfazer' no Git, você geralmente está voltando no tempo ou para outra linha do tempo onde os erros ainda não aconteceram.
