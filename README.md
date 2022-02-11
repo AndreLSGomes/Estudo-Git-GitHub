@@ -44,7 +44,7 @@ Por padrão, os SCMs oferecem métodos de contribuição de forma muito livre. �
 ## Instalando o Git no Windows
 1. Baixe o instalador: Link: https://gitforwindows.org/
 
-2. Ao iniciar o instalador, você deverá ver a tela do assistente de configuração do Git . Siga os prompts Avançar e Concluir para concluir a instalação.
+2. Ao iniciar o instalador, você deverá ver a tela do assistente de configuração do Git . Siga os prompts "Avançar" e "Concluir" para concluir a instalação.
 
 3. Abra um prompt de comando e faça:
 - ``` $ git config --global user.name "Emma Paris" ```
