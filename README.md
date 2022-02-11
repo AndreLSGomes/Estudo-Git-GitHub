@@ -105,6 +105,20 @@ A nova chave SSH agora está registrada e pronta para uso!
  
 #### Gerar uma chave SSH no Windows
 Os ambientes Windows não possuem um shell unix padrão. Programas shell externos precisarão ser instalados para ter uma experiência completa de geração de chaves. A opção mais direta é utilizar o Git Bash (https://www.atlassian.com/git/tutorials/git-bash). Depois que o Git Bash estiver instalado, as mesmas etapas para Linux e Mac podem ser seguidas no shell do Git Bash.
+
+## configuração do git
+O comando *git config* é uma função que é usada para definir valores de configuração do Git em um nível de projeto global ou local.
+O comando *git config* pode aceitar argumentos para especificar em qual nível de configuração operar. Os seguintes níveis de configuração estão disponíveis:
+- --local<p>
+Por padrão, o comando *git config* gravará em um nível local se nenhuma opção de configuração for passada. A configuração de nível local é aplicada ao repositório de contexto git configem que é invocado. Os valores de configuração local são armazenados em um arquivo que pode ser encontrado no diretório .git do repositório:.git/config
+
+- --global<p>
+A configuração de nível global é específica do usuário, o que significa que é aplicada a um usuário do sistema operacional. Os valores de configuração global são armazenados em um arquivo localizado no diretório inicial de um usuário. ~ /.gitconfig em sistemas unix e em windows C:\Users\\.gitconfig
+
+- --system<p>
+A configuração no nível do sistema é aplicada em uma máquina inteira. Isso abrange todos os usuários em um sistema operacional e todos os repositórios. O arquivo de configuração no nível do sistema reside em um arquivo *git config* fora do caminho raiz do sistema.<p>
+
+Assim, a ordem de prioridade para os níveis de configuração é: local, global, sistema. Isso significa que ao procurar um valor de configuração, o Git iniciará no nível local e subirá até o nível do sistema.
  
 ## Configurando um repositório
  
@@ -152,3 +166,32 @@ Depois de executar este exemplo, seu repositório agora passará a rastrear o ar
 Este exemplo introduziu dois comandos git adicionais: *add* e *commit*. Este foi um exemplo muito limitado, mas ambos os comandos são abordados com mais profundidade nas páginas: https://www.atlassian.com/git/tutorials/saving-changes e https://www.atlassian.com/git/tutorials/saving-changes/git-commit.
 
 Outro caso de uso comum *git add* é a opção *--all*. A execução do comando *git add --all* pegará todos os arquivos alterados e não rastreados no repositório e os adicionará ao repositório e atualizará a árvore de trabalho do repositório.
+
+
+## Os estágios de um arquivo no Git
+
+![1_LvJtV6HPdpSKpPNdjwf6jQ](https://user-images.githubusercontent.com/45216757/153660536-7700ea37-46ea-4799-8830-0c60c85dfd54.png)
+O conceito dos três estados de um arquivo GIT é muito importante para o entendimento e uso do Git. Não importa o momento, seus arquivos sempre estão em um dos três estados fundamentais:
+1. modificado (modified),
+2. preparado (staged) ou
+3. consolidado (committed).
+
+Toda vez que um arquivo é salvo no controle de versão, ou seja, é registrado uma versão, o Git armazena algo parecido com uma imagem do arquivo que representa seu estado atual.
+
+![2_oX0oxuHK-SI3nW2BmdaPng](https://user-images.githubusercontent.com/45216757/153661631-cfc6a73c-c798-4472-b921-738eef63cca9.png)
+
+**Modificado (modified)**<p>
+No repositório, há um espaço no qual são registradas as modificações nos arquivos e estrutura de diretórios sob uma determinada versão (hash) escolhida pelo usuário. Este espaço é conhecido como Working Tree.
+A Working Tree é o primeiro estágio quando se trata de gerar um novo estado para aquele repositório.
+Uma vez no repositório, qualquer arquivo que é adicionado, modificado ou removido é marcado como modificado. Significa que o arquivo sofreu alterações, mas ainda não foi dito que ele fará parte do próximo commit, ou seja, da próxima versão que será consolidada.
+Significa também que esses arquivos estão diferentes quando comparados com a última versão disponível no histórico.
+
+**Preparado (staged)**<p>
+O próximo estágio é indicar para o Git quais mudanças pertencerão ao próximo estado, isto é, corresponderão a nova versão. A seleção se dará baseada nas mudanças detectadas pela Working Tree. No terminal o comando *git add* permite selecionar algumas ou todas as mudanças detectadas lá.
+
+Quando tais mudanças são adicionadas (através do comando *git add*), elas são registradas em um arquivo dentro do repositório *.git*. Neste momento, elas encontram-se na Staging Area (alguns chamam por index). O arquivo assume o estado de preparado (staged) e o Git sabe que o arquivo foi modificado e agora está na área de preparação(stage) para ser consolidado.
+A área de stage pode ser pensada como a parte de trás das cortinas de uma apresentação. Pode ser que entre *ou* não no palco. É o momento da decisão!
+
+**Consolidado (committed)**<p>
+Nesta etapa será registrado no histórico as mudanças adicionadas na Staging Area. Ao utilizar o comando *git commit* um snapshot de todo o repositório é realizado.
+Um snapshot também é comumente denominado de commit.
