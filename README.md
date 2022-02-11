@@ -19,9 +19,9 @@ Ferramentas VCS diferem em quão bem elas lidam com renomeação e movimentaçã
 3. Rastreabilidade. Ser capaz de rastrear cada alteração feita no software e conectá-lo ao software de gerenciamento de projetos e rastreamento de bugs, como o Jira , e ser capaz de anotar cada alteração com uma mensagem descrevendo o propósito e a intenção da alteração pode ajudar não apenas na análise da causa raiz e outros forenses. Ter o histórico anotado do código na ponta dos dedos quando você está lendo o código, tentando entender o que ele está fazendo e por que ele foi projetado pode permitir que os desenvolvedores façam alterações corretas e harmoniosas que estejam de acordo com o design de longo prazo pretendido do sistema. Isso pode ser especialmente importante para trabalhar efetivamente com código legado e é crucial para permitir que os desenvolvedores estimem o trabalho futuro com precisão.
 
 ## Gerenciamento de código-fonte
- O gerenciamento de código-fonte (SCM) é usado para rastrear modificações em um repositório de código-fonte. O SCM rastreia um histórico de alterações em uma base de código e ajuda a resolver conflitos ao mesclar atualizações de vários colaboradores.
+O gerenciamento de código-fonte (SCM) é usado para rastrear modificações em um repositório de código-fonte. O SCM rastreia um histórico de alterações em uma base de código e ajuda a resolver conflitos ao mesclar atualizações de vários colaboradores.
  
- ## Práticas recomendadas de gerenciamento de código-fonte
+## Práticas recomendadas de gerenciamento de código-fonte
 
 1. Comprometa-se com frequência
 Commits são baratos e fáceis de fazer. Eles devem ser feitos com frequência para capturar atualizações em uma base de código. Cada commit é um instantâneo para o qual a base de código pode ser revertida, se necessário. Commits frequentes dão muitas oportunidades para reverter ou desfazer o trabalho. Um grupo de commits pode ser combinado em um único commit usando um rebase para esclarecer o log de desenvolvimento.
@@ -57,11 +57,98 @@ Por padrão, os SCMs oferecem métodos de contribuição de forma muito livre. �
 - $ sudo apt-get update  ``` 
 - $ sudo apt-get install git  ``` 
 
-3. Verifique se a instalação foi bem-sucedida digitando git --version:
-- ``` $ git --version ``` 
-- ``` git version 2.9.2  ``` 
+3. Verifique se a instalação foi bem-sucedida digitando:
+- ``` $ git --version ```
 
-3. Configure seu nome de usuário e e-mail do Git usando os comandos a seguir, substituindo o nome de Emma pelo seu. Esses detalhes serão associados a qualquer commit que você criar:
+4. Configure seu nome de usuário e e-mail do Git usando os comandos a seguir, substituindo o nome de Emma pelo seu. Esses detalhes serão associados a qualquer commit que você criar:
 
 - ``` $ git config --global user.name "Emma Paris"  ``` 
-- ``` $ git config --global user.email "eparis@atlassian.com"  ``` 
+- ``` $ git config --global user.email "eparis@atlassian.com"  ```
+
+## O que é uma CHAVE SSH?
+Uma chave SSH é uma credencial de acesso para o protocolo de rede SSH (secure shell). Esse protocolo de rede seguro autenticado e criptografado é usado para comunicação remota entre máquinas em uma rede aberta não segura . O SSH é usado para transferência remota de arquivos, gerenciamento de rede e acesso remoto ao sistema operacional.
+O SSH usa um par de chaves para iniciar um handshake seguro entre partes remotas. O par de chaves contém uma chave pública e privada. A nomenclatura privada versus pública pode ser confusa, pois ambas são chamadas de chaves. É mais útil pensar na chave pública como uma "cadeia" e na chave privada como a "chave". Você dá o 'bloqueio' público a partes remotas para criptografar ou 'bloquear' os dados. Esses dados são então abertos com a chave 'privada' que você mantém em um local seguro.
+
+#### Como criar uma chave SSH
+As chaves SSH são geradas por meio de um algoritmo criptográfico de chave pública , sendo o mais comum RSA ou DSA . Em um nível muito alto, as chaves SSH são geradas por meio de uma fórmula matemática que leva 2 números primos e uma variável de semente aleatória para gerar a chave pública e privada. Essa é uma fórmula unidirecional que garante que a chave pública possa ser derivada da chave privada, mas a chave privada não pode ser derivada da chave pública.
+
+#### Gerar uma chave SSH no Mac e Linux
+Os sistemas operacionais OsX e Linux possuem aplicativos de terminal modernos e abrangentes que acompanham o pacote SSH instalado. O processo para criar uma chave SSH é o mesmo entre eles.
+
+1. execute o seguinte para iniciar a criação da chave
+- ``` ssh-keygen -t rsa -b 4096 -C "your_email@example.com" ``` <P>
+Este comando criará uma nova chave SSH usando o e-mail como rótulo
+
+2. Em seguida, você será solicitado a "Inserir um arquivo no qual deseja salvar a chave".
+Você pode especificar um local de arquivo ou pressionar “Enter” para aceitar o local de arquivo padrão.
+- ``` > Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter] ```
+ 
+3. O próximo prompt solicitará uma senha segura.
+Uma frase secreta adicionará uma camada adicional de segurança ao SSH e será necessária sempre que a chave SSH for usada. Se alguém obtiver acesso ao computador em que as chaves privadas estão armazenadas, também poderá obter acesso a qualquer sistema que use essa chave. Adicionar uma senha às chaves evitará esse cenário.
+- ```  > Enter passphrase (empty for no passphrase): [Type a passphrase] ``` 
+- ```  > Enter same passphrase again: [Type passphrase again] ```  <P>
+ 
+Neste ponto, uma nova chave SSH terá sido gerada no caminho do arquivo especificado anteriormente.
+
+4. Adicione a nova chave SSH ao agente ssh
+
+O ssh-agent é outro programa que faz parte do conjunto de ferramentas SSH. O agente ssh é responsável por manter as chaves privadas. Pense nisso como um chaveiro. Além de manter as chaves privadas, também intermedia solicitações para assinar solicitações SSH com as chaves privadas, para que as chaves privadas nunca sejam passadas sem segurança.
+
+Antes de adicionar a nova chave SSH ao ssh-agent, primeiro verifique se o ssh-agent está em execução executando:
+- ``` $ eval "$(ssh-agent -s)" ```
+- ``` > Agent pid 59566 ```
+ 
+Quando o ssh-agent estiver em execução, o comando a seguir adicionará a nova chave SSH ao agente SSH local.
+- ``` ssh-add -K /Users/you/.ssh/id_rsa ```
+ 
+A nova chave SSH agora está registrada e pronta para uso!
+ 
+#### Gerar uma chave SSH no Windows
+Os ambientes Windows não possuem um shell unix padrão. Programas shell externos precisarão ser instalados para ter uma experiência completa de geração de chaves. A opção mais direta é utilizar o Git Bash (https://www.atlassian.com/git/tutorials/git-bash). Depois que o Git Bash estiver instalado, as mesmas etapas para Linux e Mac podem ser seguidas no shell do Git Bash.
+ 
+## Configurando um repositório
+ 
+Um repositório Git é um armazenamento virtual do seu projeto. Ele permite que você salve versões do seu código, que você pode acessar quando necessário. 
+ 
+#### Inicializando um novo repositório: git init
+Para criar um novo repositório, você usará o comando:
+- ``` git init ``` 
+ 
+*git init* é um comando de uso único que você usa durante a configuração inicial de um novo repositório. A execução deste comando criará um novo subdiretório *.git* em seu diretório de trabalho atual. Isso também criará uma nova *branch* principal.
+ 
+#### Versionando um projeto existente com um novo repositório git
+Este exemplo pressupõe que você já tenha uma pasta de projeto existente na qual gostaria de criar um repositório. Você irá primeiro acessar a pasta do projeto raiz e, em seguida, executará o comando *git init*.
+
+- ``` cd /path/to/your/existing/code ```
+- ``` git init ``` <p>
+ 
+Apontar *git init* para um diretório de projeto existente executará a mesma configuração de inicialização mencionada acima, mas com escopo para esse diretório de projeto.
+
+ - ``` git init <project directory> ``` <p>
+ 
+ #### Clonando um repositório existente: git clone
+Se um projeto já foi configurado em um repositório central, o comando clone é a maneira mais comum de os usuários obterem um clone de desenvolvimento local. Assim como o comando *git init*, a clonagem geralmente é uma operação única. Depois que um desenvolvedor obtém uma cópia de trabalho, todas as operações de controle de versão são gerenciadas por meio de seu repositório local.
+
+ - ``` git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY ``` <p>
+ 
+Quando executado, a versão mais recente dos arquivos de repositório remoto na *branch* principal será baixada e adicionada a uma nova pasta. A pasta conterá o histórico completo do repositório remoto e uma ramificação principal recém-criada.
+
+## Salvando alterações no repositório: git add e git commit
+Agora que você tem um repositório clonado ou inicializado, você pode confirmar as alterações de versão do arquivo nele. O exemplo a seguir pressupõe que você configurou um projeto em */path/to/project*. As etapas que estão sendo executadas neste exemplo são:
+
+1. Alterar diretórios para/path/to/project
+- ``` cd /path/to/project  ```
+ 
+2. Crie um novo arquivo CommitTest.txt com conteúdo: "Inclusão de novo arquivo para tutorial git"
+- ``` echo "Inclusão de novo arquivo para tutorial git" >> CommitTest.txt  ```
+ 
+3. *git add* CommitTest.txt para a área de STAGE do repositório
+- ``` git add CommitTest.txt  ```
+
+4. Crie um novo commit com uma mensagem descrevendo qual trabalho foi feito no commit
+- ``` git commit -m "adicionado CommitTest.txt ao repositório"  ```
+
+Depois de executar este exemplo, seu repositório agora passará a rastrear o arquivo *CommitTest.txt* coletando e armazenando seu histórico de alterações.
+Este exemplo introduziu dois comandos git adicionais: *add* e *commit*. Este foi um exemplo muito limitado, mas ambos os comandos são abordados com mais profundidade nas páginas: https://www.atlassian.com/git/tutorials/saving-changes e https://www.atlassian.com/git/tutorials/saving-changes/git-commit.
+
+Outro caso de uso comum *git add* é a opção *--all*. A execução do comando *git add --all* pegará todos os arquivos alterados e não rastreados no repositório e os adicionará ao repositório e atualizará a árvore de trabalho do repositório.
