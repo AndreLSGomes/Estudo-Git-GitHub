@@ -256,7 +256,7 @@ A ideia por trás de qualquer sistema de controle de versão é armazenar cópia
 
 No exemplo abaixo, usamos git logpara obter uma lista dos commits mais recentes:
 
-![1](https://user-images.githubusercontent.com/45216757/154678780-6a4b34cf-93a4-4c9b-be87-7acda784865b.jpg)
+![2](https://user-images.githubusercontent.com/45216757/154680745-350a2c7e-5041-4331-bbce-06ef43a9515d.png)
 
 Cada *commit* tem um hash de identificação (SHA-1 - função hash criptográfica) exclusivo. Esses IDs são usados para percorrer a linha do tempo confirmada e revisitar os commits.
 Por padrão, o comando *git log* só mostrará commits para o branch selecionado no momento. É perfeitamente possível que o commit que você está procurando esteja em outro branch. Você pode visualizar todos os commits em todas as ramificações executando *git log --branches=* *.
