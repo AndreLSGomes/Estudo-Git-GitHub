@@ -337,4 +337,10 @@ Antes que as alterações sejam confirmadas no histórico do repositório, elas 
 A *Work Directory* geralmente está sincronizada com o sistema de arquivos local e para desfazer as alterações, você pode editar arquivos como faria normalmente usando seu editor favorito. O Git tem alguns utilitários que ajudam a gerenciar a *Work Directory*. Existe o comando *git clean* que é um utilitário para desfazer alterações no diretório de trabalho.
 Além disso, pode-se executar o comando *git reset* com as opções *--mixed* ou *--hard* e aplicará uma redefinição ao diretório de trabalho.
 
-O comando *git add* é usado para adicionar alterações na área de STAGE. O comando *git reset* é usado principalmente para desfazer as alterações na *Work Directory*.
+O comando *git add* é usado para adicionar alterações na área de STAGE. O comando *git reset* é usado principalmente para desfazer as alterações na na *Área de STAGE*.
+
+#### Desfazendo alterações públicas
+Ao trabalhar em uma equipe com repositórios remotos, uma consideração extra precisa ser feita ao desfazer as alterações. O comando *git reset* geralmente deve ser considerado um método de desfazer 'local'. O *git reset* deve ser usada ao desfazer alterações em uma branch privada porque isola com segurança a remoção de commits de outras branches que podem estar em uso por outros desenvolvedores.<p>
+
+O método preferido de desfazer o histórico compartilhado é *git revert*. Uma reversão é mais segura do que uma redefinição porque não removerá nenhuma commit de um histórico compartilhado. Uma reversão reterá os commits que você deseja desfazer e criará um novo commit que inverte o commit indesejado.
+
