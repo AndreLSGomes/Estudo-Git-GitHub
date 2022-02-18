@@ -316,4 +316,25 @@ Se executarmos o comando *git revert HEAD*, o Git criará um novo commit com o i
 
 ![Sem título](https://user-images.githubusercontent.com/45216757/154701630-42b69018-a732-4974-a8b7-6bc0e83c99ba.jpg)
 
-este ponto, tecnicamente 'desfazemos' o commit “872fa7e”. Embora “872fa7e” ainda exista no histórico, o novo commit “e2f9a78” é o inverso das mudanças no “872fa7e”. Ao contrário de nossa estratégia de checkout anterior, podemos continuar usando o mesmo branch. Esta solução é um desfazer satisfatório. Este é um método de 'desfazer' ideal para trabalhar com repositórios compartilhados públicos.
+Neste ponto, tecnicamente 'desfazemos' o commit “872fa7e”. Embora “872fa7e” ainda exista no histórico, o novo commit “e2f9a78” é o inverso das mudanças no “872fa7e”. Ao contrário de nossa estratégia de checkout anterior, podemos continuar usando o mesmo branch. Esta solução é um desfazer satisfatório. Este é um método de 'desfazer' ideal para trabalhar com repositórios compartilhados públicos.
+
+#### Como desfazer um commit com git reset
+Para esta estratégia de desfazer, continuaremos com nosso exemplo anterior.
+Se executarmos o comando *git reset --hard a1e8fb5* o histórico de commits é redefinido para aquele commit especificado. Ao examinar o histórico de commits com o comando *git log* teremos:
+
+![Sem título](https://user-images.githubusercontent.com/45216757/154702784-a76beb75-eb28-4481-9c02-62b1940d1512.jpg)
+
+A saída do log mostra que os commits “e2f9a78” e “872fa7e” não existem mais no histórico de confirmação. Neste ponto, podemos continuar trabalhando e criando novos commits como se os commits 'loucos' nunca tivessem acontecido. Esse método de desfazer alterações tem o efeito mais limpo no histórico.
+
+Fazer uma redefinição é ótimo para alterações locais, mas adiciona complicações ao trabalhar com um repositório remoto compartilhado. Se tivermos um repositório remoto compartilhado que tenha o commit “872fa7e” enviado para ele e tentarmos executar o comando *git push*, uma branch em que redefinimos o histórico, o Git detectará isso e gerará um erro. O Git assumirá que o branch que está sendo enviado não está atualizado devido à falta de commits. Nesses cenários, o comando *git revert* deve ser o método de desfazer preferido.
+
+#### Desfazendo o último commit
+Na seção anterior, discutimos diferentes estratégias para desfazer commits. Essas estratégias também são aplicáveis ao commit mais recente. Em alguns casos, porém, talvez você não precise remover ou redefinir o último commit. Talvez tenha sido feito prematuramente. Nesse caso, você pode alterar o commit mais recente.
+Uma vez que você tenha feito mais mudanças no diretório de trabalho e as tenha preparado para commit usando o comando *git add*, você pode executar *git commit --amend*. Isso fará com que o Git abra o editor do sistema e permita que você modifique a última mensagem de confirmação. As novas alterações serão adicionadas ao commit alterado.
+
+#### Desfazendo alterações não confirmadas
+Antes que as alterações sejam confirmadas no histórico do repositório, elas residem na área de STAGE e na Work Directory.
+A *Work Directory* geralmente está sincronizada com o sistema de arquivos local e para desfazer as alterações, você pode editar arquivos como faria normalmente usando seu editor favorito. O Git tem alguns utilitários que ajudam a gerenciar a *Work Directory*. Existe o comando *git clean* que é um utilitário para desfazer alterações no diretório de trabalho.
+Além disso, pode-se executar o comando *git reset* com as opções *--mixed* ou *--hard* e aplicará uma redefinição ao diretório de trabalho.
+
+O comando *git add* é usado para adicionar alterações na área de STAGE. O comando *git reset* é usado principalmente para desfazer as alterações na *Work Directory*.
