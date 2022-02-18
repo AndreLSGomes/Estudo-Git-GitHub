@@ -106,11 +106,11 @@ A nova chave SSH agora está registrada e pronta para uso!
 #### Gerar uma chave SSH no Windows
 Os ambientes Windows não possuem um shell unix padrão. Programas shell externos precisarão ser instalados para ter uma experiência completa de geração de chaves. A opção mais direta é utilizar o Git Bash (https://www.atlassian.com/git/tutorials/git-bash). Depois que o Git Bash estiver instalado, as mesmas etapas para Linux e Mac podem ser seguidas no shell do Git Bash.
 
-## configuração do git
+## Configuração do git
 O comando *git config* é uma função que é usada para definir valores de configuração do Git em um nível de projeto global ou local.
 O comando *git config* pode aceitar argumentos para especificar em qual nível de configuração operar. Os seguintes níveis de configuração estão disponíveis:
 - --local<p>
-Por padrão, o comando *git config* gravará em um nível local se nenhuma opção de configuração for passada. A configuração de nível local é aplicada ao repositório de contexto git configem que é invocado. Os valores de configuração local são armazenados em um arquivo que pode ser encontrado no diretório .git do repositório:.git/config
+Por padrão, o comando *git config* gravará em um nível local se nenhuma opção de configuração for passada. A configuração de nível local é aplicada ao repositório de contexto git config em que é invocado. Os valores de configuração local são armazenados em um arquivo que pode ser encontrado no diretório .git do repositório:.git/config
 
 - --global<p>
 A configuração de nível global é específica do usuário, o que significa que é aplicada a um usuário do sistema operacional. Os valores de configuração global são armazenados em um arquivo localizado no diretório inicial de um usuário. ~ /.gitconfig em sistemas unix e em windows C:\Users\\.gitconfig
@@ -140,7 +140,7 @@ Apontar *git init* para um diretório de projeto existente executará a mesma co
 
  - ``` git init <project directory> ``` <p>
  
- #### Clonando um repositório existente: git clone
+#### Clonando um repositório existente: git clone
 Se um projeto já foi configurado em um repositório central, o comando clone é a maneira mais comum de os usuários obterem um clone de desenvolvimento local. Assim como o comando *git init*, a clonagem geralmente é uma operação única. Depois que um desenvolvedor obtém uma cópia de trabalho, todas as operações de controle de versão são gerenciadas por meio de seu repositório local.
 
  - ``` git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY ``` <p>
