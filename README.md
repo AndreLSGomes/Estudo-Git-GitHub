@@ -255,7 +255,15 @@ Uma metáfora divertida é pensar no Git como um utilitário de gerenciamento de
 A ideia por trás de qualquer sistema de controle de versão é armazenar cópias “seguras” de um projeto. Depois de criar um histórico de commits do projeto, você pode revisar e revisitar qualquer commit no histórico. Um dos melhores utilitários para revisar o histórico de um repositório Git é o comando *git log*.
 
 No exemplo abaixo, usamos git logpara obter uma lista dos commits mais recentes:
+
 ![1](https://user-images.githubusercontent.com/45216757/154678780-6a4b34cf-93a4-4c9b-be87-7acda784865b.jpg)
 
 Cada *commit* tem um hash de identificação (SHA-1 - função hash criptográfica) exclusivo. Esses IDs são usados para percorrer a linha do tempo confirmada e revisitar os commits.
 Por padrão, o comando *git log* só mostrará commits para o branch selecionado no momento. É perfeitamente possível que o commit que você está procurando esteja em outro branch. Você pode visualizar todos os commits em todas as ramificações executando *git log --branches=* *.
+O comando *git branch* é usado para visualizar e visitar outros branches. Invocar o comando *git branch -a* retornará uma lista de todos os nomes de branches conhecidos.
+
+Quando você encontrar uma referência de commit para o ponto no histórico que deseja visitar, você pode utilizar o comando *git checkout* para visitar esse commit. *Git checkout* é uma maneira fácil de “carregar” qualquer um desses *snapshots* salvos.
+Durante o curso normal do desenvolvimento, *HEAD* geralmente aponta para main ou algum outro branch local, mas quando você faz check-out de um commit anterior, HEADnão aponta mais para um branch—ele aponta diretamente para um commit. Isso é chamado de estado “desanexado HEAD” e pode ser visualizado da seguinte forma:
+
+![1](https://user-images.githubusercontent.com/45216757/154680207-fda6fb7b-691e-4652-8d98-6891e2876d1b.jpg)
+
