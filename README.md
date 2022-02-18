@@ -277,9 +277,43 @@ Digamos que o histórico do seu projeto se pareça com o seguinte:
 
 ![Sem título](https://user-images.githubusercontent.com/45216757/154696053-a83de6d3-941c-4b73-9a57-74655e791887.jpg)
 
-Você pode usar git checkoutpara visualizar o commit “Fazer algumas alterações de importação no hello.txt” da seguinte forma:
+Você pode usar git checkout para visualizar o commit “Make some important changes to hello.txt” da seguinte forma:
 
-![Sem título](https://user-images.githubusercontent.com/45216757/154696430-84c1859d-25a1-4f79-a659-c438b3b1f2f3.jpg)
+- ``` git checkout a1e8fb5 ```
 
-Isso faz com que seu diretório de trabalho corresponda ao estado exato do commit 'a1e8fb5'. Você pode ver arquivos, compilar o projeto, executar testes e até editar arquivos sem se preocupar em perder o estado atual do projeto. Nada que você fizer aqui será salvo em seu repositório. Para continuar desenvolvendo, você precisa voltar ao estado “atual” do seu projeto:
+Isso faz com que seu diretório de trabalho corresponda ao estado exato do commit “a1e8fb5“. Você pode ver arquivos, compilar o projeto, executar testes e até editar arquivos sem se preocupar em perder o estado atual do projeto. Nada que você fizer aqui será salvo em seu repositório.<p>
 
+Para continuar desenvolvendo, você precisa voltar ao estado “atual” do seu projeto:
+
+- ``` git checkout main ```
+
+Quando estiver de volta à branch *MAIN*, você poderá usar *git revert* ou *git reset* para desfazer quaisquer alterações indesejadas.
+
+#### Desfazendo um snapshot comitado
+Existem tecnicamente várias estratégias diferentes para 'desfazer' um commit. Os exemplos a seguir assumirão que temos um histórico de commits parecido com:
+
+![Sem título](https://user-images.githubusercontent.com/45216757/154698014-403e1736-e4d7-4026-8f39-30a9f0a15364.jpg)
+
+Vamos nos concentrar em desfazer o comiit “872fa7e Try something crazy”.
+
+#### Como desfazer um commit com git checkout
+Usando o comando *git checkout* podemos fazer o checkout do commit anterior, a1e8fb5, colocando o repositório em um estado antes do commit maluco acontecer.
+Fazer checkout de um commit específico colocará o repositório em um estado "HEAD detached". Isso significa que você não está mais trabalhando em nenhuma ramificação.<p>
+Em um estado desanexado, quaisquer novos commits que você fizer ficarão órfãos quando você mudar os branches de volta para um branch estabelecido. Os commits órfãos estão disponíveis para exclusão pelo coletor de lixo do Git. O coletor de lixo é executado em um intervalo de tempo configurado e destrói permanentemente os *commits* órfãos.<p>
+
+Para evitar que commits órfãos sejam coletados como lixo, precisamos garantir que estamos em uma ramificação.
+A partir do estado HEAD desanexado, podemos executar o comando *git checkout -b new_branch_without_crazy_commit*. Isso criará uma nova ramificação chamada new_branch_without_crazy_commite mudará para esse estado.
+Isso criará um novo branch chamado “new_branch_without_crazy_commit” e mudará para esse estado.<p>
+
+O repositório agora está em uma nova linha de tempo do histórico na qual o commit “872fa7e” não existe mais. Neste ponto, podemos continuar trabalhando neste novo branch e considerar que o commit “872fa7e” foi 'desfeito'.<p>
+
+Caso tenha a necessidade de manter a ramificação anterior “872fa7e”, essa estratégia de desfazer não é apropriada.
+
+#### Como desfazer um commit público com *git revert*
+Vamos supor que estamos de volta ao nosso exemplo original do histórico de commits. O histórico que inclui o commit “872fa7e”.
+Desta vez vamos tentar reverter, desfazer.
+Se executarmos o comando *git revert HEAD*, o Git criará um novo commit com o inverso do último commit. Isso adiciona um novo commit ao histórico de branch atual e agora fica assim:
+
+![Sem título](https://user-images.githubusercontent.com/45216757/154701630-42b69018-a732-4974-a8b7-6bc0e83c99ba.jpg)
+
+este ponto, tecnicamente 'desfazemos' o commit “872fa7e”. Embora “872fa7e” ainda exista no histórico, o novo commit “e2f9a78” é o inverso das mudanças no “872fa7e”. Ao contrário de nossa estratégia de checkout anterior, podemos continuar usando o mesmo branch. Esta solução é um desfazer satisfatório. Este é um método de 'desfazer' ideal para trabalhar com repositórios compartilhados públicos.
