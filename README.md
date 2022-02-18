@@ -163,10 +163,18 @@ Agora que você tem um repositório clonado ou inicializado, você pode confirma
 - ``` git commit -m "adicionado CommitTest.txt ao repositório"  ```
 
 Depois de executar este exemplo, seu repositório agora passará a rastrear o arquivo *CommitTest.txt* coletando e armazenando seu histórico de alterações.
-Este exemplo introduziu dois comandos git adicionais: *add* e *commit*. Este foi um exemplo muito limitado, mas ambos os comandos são abordados com mais profundidade nas páginas: https://www.atlassian.com/git/tutorials/saving-changes e https://www.atlassian.com/git/tutorials/saving-changes/git-commit.
 
-Outro caso de uso comum *git add* é a opção *--all*. A execução do comando *git add --all* pegará todos os arquivos alterados e não rastreados no repositório e os adicionará ao repositório e atualizará a árvore de trabalho do repositório.
+#### Aprofundando...
+**git add**<p>
+O comando * git add* adiciona uma alteração no diretório de trabalho à área de Stage. Ele informa ao Git que você deseja incluir atualizações para um arquivo específico no próximo commit. No entanto, o comando *git add* não afeta o repositório de forma significativa - as alterações não são realmente registradas até que você execute o comando *git commit*.
 
+Os comandos *git add* e *git commit* compõem o fluxo de trabalho fundamental do Git. Esses são os dois comandos que todo usuário do Git precisa entender, independentemente do modelo de colaboração de sua equipe. Eles são os meios para registrar versões de um projeto no histórico do repositório.
+
+O desenvolvimento de um projeto gira, portanto, em torno do padrão básico de *edição/stage/commit*. Primeiro, você edita seus arquivos no diretório de trabalho. Quando estiver pronto para salvar uma cópia do estado atual do projeto, você prepara as alterações com *git add*. Depois de ficar satisfeito com o snapshot preparado, você o confirma no histórico do projeto com o *git commit*.
+
+Além de *git add* e *git commit*, um terceiro comando *git push* é essencial para um fluxo de trabalho colaborativo com o Git. O comando *git push* é utilizado para enviar as alterações confirmadas para repositórios remotos. Isso permite que outros membros da equipe acessem um conjunto de alterações salvas.
+
+![Sem título](https://user-images.githubusercontent.com/45216757/154715357-d5cd1c37-79d5-4a60-b1a2-c6b2147e4d56.jpg)
 
 ## Os estágios de um arquivo no Git
 
