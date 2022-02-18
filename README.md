@@ -246,5 +246,5 @@ O comando *git log* permite listar o histórico do projeto, filtrá-lo e pesquis
 Lista quais arquivos são staged, unstaged e untracked.
 
 ## Desfazendo confirmações e alterações
-É importante notar que o *Git* não possui um sistema tradicional de 'desfazer' como os encontrados em um aplicativo de processamento de texto. Além disso, o *Git* tem sua própria nomenclatura para operações de 'desfazer'. Essa nomenclatura inclui termos como reset, revert, checkout, clean, e muito mais.<p>
+É importante notar que o *Git* não possui um sistema tradicional de 'desfazer' como os encontrados em um aplicativo de processamento de texto (Microsoft Word, por exemplo). Além disso, o *Git* tem sua própria nomenclatura para operações de 'desfazer'. Essa nomenclatura inclui termos como reset, revert, checkout, clean, e muito mais.<p>
 Ao 'desfazer' no Git, você geralmente está voltando no tempo ou para outra linha do tempo onde os erros ainda não aconteceram.
