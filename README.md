@@ -246,24 +246,40 @@ O comando *git log* permite listar o histórico do projeto, filtrá-lo e pesquis
 Lista quais arquivos são staged, unstaged e untracked.
 
 ## Desfazendo confirmações e alterações
-É importante notar que o *Git* não possui um sistema tradicional de 'desfazer' como os encontrados em um aplicativo de processamento de texto (Microsoft Word, por exemplo). Além disso, o *Git* tem sua própria nomenclatura para operações de 'desfazer'. Essa nomenclatura inclui termos como reset, revert, checkout, clean, e muito mais.<p>
-Ao 'desfazer' no Git, você geralmente está voltando no tempo ou para outra linha do tempo onde os erros ainda não aconteceram.
+É importante notar que o *Git* não possui um sistema tradicional de 'desfazer' como os encontrados em aplicativo de processamento de texto, como por exemplo o Microsoft Word. Além disso, o *Git* tem sua própria nomenclatura para operações de 'desfazer'. Essa nomenclatura inclui termos como *reset*, *revert*, *checkout*, *clean*, e outros.<p>
 
-Uma metáfora divertida é pensar no Git como um utilitário de gerenciamento de linha do tempo. Commits são snapshots instantâneos de um ponto no tempo ou pontos de interesse ao longo da linha do tempo. Além disso, várias linhas do tempo podem ser gerenciadas por meio do uso de branches. Ao 'desfazer' no Git, você geralmente está voltando no tempo ou para outra linha do tempo onde os erros não aconteceram.
+Podemos pensar no *Git* como um utilitário de gerenciamento de linha do tempo, onde *commits* são snapshots instantâneos de um ponto no tempo ou pontos de interesse ao longo da linha do tempo. Além disso, várias linhas do tempo podem ser gerenciadas por meio do uso de branches. Ao 'desfazer' no *Git*, você geralmente está voltando para outra linha do tempo onde os erros não aconteceram.
 
 #### Encontrando o que está perdido: revisando commits antigos
-A ideia por trás de qualquer sistema de controle de versão é armazenar cópias “seguras” de um projeto. Depois de criar um histórico de commits do projeto, você pode revisar e revisitar qualquer commit no histórico. Um dos melhores utilitários para revisar o histórico de um repositório Git é o comando *git log*.
+A ideia por trás de qualquer sistema de controle de versão é armazenar cópias “seguras” de um projeto. Depois de criar um histórico de commits do projeto, você pode revisar e revisitar qualquer commit no histórico. Um dos melhores comandos para revisar o histórico de um repositório Git é *git log*.
 
-No exemplo abaixo, usamos git logpara obter uma lista dos commits mais recentes:
+No exemplo abaixo, usamos o comando *git log* para obter uma lista dos commits mais recentes:
 
-![2](https://user-images.githubusercontent.com/45216757/154680745-350a2c7e-5041-4331-bbce-06ef43a9515d.png)
+![Sem título](https://user-images.githubusercontent.com/45216757/154682283-bddf5447-6682-4ab4-b22e-26a2b0f29738.jpg)
 
-Cada *commit* tem um hash de identificação (SHA-1 - função hash criptográfica) exclusivo. Esses IDs são usados para percorrer a linha do tempo confirmada e revisitar os commits.
-Por padrão, o comando *git log* só mostrará commits para o branch selecionado no momento. É perfeitamente possível que o commit que você está procurando esteja em outro branch. Você pode visualizar todos os commits em todas as ramificações executando *git log --branches=* *.
-O comando *git branch* é usado para visualizar e visitar outros branches. Invocar o comando *git branch -a* retornará uma lista de todos os nomes de branches conhecidos.
+Cada *commit* tem um hash (chave gerada através de criptografia) exclusivo de identificação, chamados de ID's. Esses ID's são usados para percorrer a linha do tempo confirmada e revisitar os commits.
+Por padrão, o comando *git log* só mostrará commits para o branch selecionado no momento. É perfeitamente possível que o commit que você está procurando esteja em outro branch. Você pode visualizar todos os commits em todas os branches executando o comando *git log --branches=* *.
+O comando *git branch* é usado para visualizar e visitar outros branches. Executar o comando *git branch -a* retornará uma lista de todos os nomes de branches conhecidos.
 
-Quando você encontrar uma referência de commit para o ponto no histórico que deseja visitar, você pode utilizar o comando *git checkout* para visitar esse commit. *Git checkout* é uma maneira fácil de “carregar” qualquer um desses *snapshots* salvos.
-Durante o curso normal do desenvolvimento, *HEAD* geralmente aponta para main ou algum outro branch local, mas quando você faz check-out de um commit anterior, HEADnão aponta mais para um branch—ele aponta diretamente para um commit. Isso é chamado de estado “desanexado HEAD” e pode ser visualizado da seguinte forma:
+Quando você encontrar uma referência de commit para o ponto no histórico que deseja visitar, você pode utilizar o comando *git checkout* para visitar esse commit. *Git checkout* é uma maneira fácil de “carregar” qualquer um desses *snapshots* salvos.<p>
+**Observação:** Durante o curso normal do desenvolvimento, *HEAD* geralmente aponta para *MAIN* ou algum outro branch local, mas quando você faz checkout de um commit anterior, *HEAD* não aponta mais para um branch, ele aponta diretamente para um commit. Isso é chamado de estado “HEAD desanexado” e pode ser visualizado da seguinte forma:
 
-![1](https://user-images.githubusercontent.com/45216757/154680207-fda6fb7b-691e-4652-8d98-6891e2876d1b.jpg)
+![Sem título](https://user-images.githubusercontent.com/45216757/154682395-29941b09-efef-4f1f-a501-f6f83809df11.jpg)
+
+Para mais informações sobre o comando *git checkout* visite: https://www.atlassian.com/git/tutorials/using-branches/git-checkout.
+
+#### Visualizando uma revisão antiga
+Este exemplo pressupõe que você começou a desenvolver um experimento, mas não tem certeza se deseja mantê-lo ou não. Para ajudá-lo a decidir, dê uma olhada no estado do projeto antes de iniciar o experimento. Primeiro, você precisará encontrar o ID da revisão que deseja ver.
+
+- ``` git log --oneline ```
+
+Digamos que o histórico do seu projeto se pareça com o seguinte:
+
+![Sem título](https://user-images.githubusercontent.com/45216757/154696053-a83de6d3-941c-4b73-9a57-74655e791887.jpg)
+
+Você pode usar git checkoutpara visualizar o commit “Fazer algumas alterações de importação no hello.txt” da seguinte forma:
+
+![Sem título](https://user-images.githubusercontent.com/45216757/154696430-84c1859d-25a1-4f79-a659-c438b3b1f2f3.jpg)
+
+Isso faz com que seu diretório de trabalho corresponda ao estado exato do commit 'a1e8fb5'. Você pode ver arquivos, compilar o projeto, executar testes e até editar arquivos sem se preocupar em perder o estado atual do projeto. Nada que você fizer aqui será salvo em seu repositório. Para continuar desenvolvendo, você precisa voltar ao estado “atual” do seu projeto:
 
