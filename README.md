@@ -248,3 +248,14 @@ Lista quais arquivos são staged, unstaged e untracked.
 ## Desfazendo confirmações e alterações
 É importante notar que o *Git* não possui um sistema tradicional de 'desfazer' como os encontrados em um aplicativo de processamento de texto (Microsoft Word, por exemplo). Além disso, o *Git* tem sua própria nomenclatura para operações de 'desfazer'. Essa nomenclatura inclui termos como reset, revert, checkout, clean, e muito mais.<p>
 Ao 'desfazer' no Git, você geralmente está voltando no tempo ou para outra linha do tempo onde os erros ainda não aconteceram.
+
+Uma metáfora divertida é pensar no Git como um utilitário de gerenciamento de linha do tempo. Commits são snapshots instantâneos de um ponto no tempo ou pontos de interesse ao longo da linha do tempo. Além disso, várias linhas do tempo podem ser gerenciadas por meio do uso de branches. Ao 'desfazer' no Git, você geralmente está voltando no tempo ou para outra linha do tempo onde os erros não aconteceram.
+
+#### Encontrando o que está perdido: revisando commits antigos
+A ideia por trás de qualquer sistema de controle de versão é armazenar cópias “seguras” de um projeto. Depois de criar um histórico de commits do projeto, você pode revisar e revisitar qualquer commit no histórico. Um dos melhores utilitários para revisar o histórico de um repositório Git é o comando *git log*.
+
+No exemplo abaixo, usamos git logpara obter uma lista dos commits mais recentes:
+![1](https://user-images.githubusercontent.com/45216757/154678780-6a4b34cf-93a4-4c9b-be87-7acda784865b.jpg)
+
+Cada *commit* tem um hash de identificação (SHA-1 - função hash criptográfica) exclusivo. Esses IDs são usados para percorrer a linha do tempo confirmada e revisitar os commits.
+Por padrão, o comando *git log* só mostrará commits para o branch selecionado no momento. É perfeitamente possível que o commit que você está procurando esteja em outro branch. Você pode visualizar todos os commits em todas as ramificações executando *git log --branches=* *.
